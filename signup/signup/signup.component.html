@@ -1,0 +1,40 @@
+<div class="signup-container">
+  <div class="slideshow">
+    <img [src]="'./assets/images/photo' + currentImage + '.png'" alt="Recipe Image" class="slide-image">
+  </div>
+  <div class="overlay">
+    <div class="signup-card">
+      <div class="signup-content">
+        <div class="form-side">
+          <h2>S'inscrire</h2>
+          <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <fa-icon [icon]="faUser" class="field-icon"></fa-icon>
+              <input type="text" [(ngModel)]="firstName" name="firstName" placeholder="Prénom" required>
+            </div>
+            <div class="form-group">
+              <fa-icon [icon]="faUser" class="field-icon"></fa-icon>
+              <input type="text" [(ngModel)]="lastName" name="lastName" placeholder="Nom" required>
+            </div>
+            <div class="form-group">
+              <fa-icon [icon]="faEnvelope" class="field-icon"></fa-icon>
+              <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+              <fa-icon [icon]="faLock" class="field-icon"></fa-icon>
+              <input type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required>
+            </div>
+            <button type="submit" class="signup-btn">S'inscrire</button>
+            <div class="login-link">
+              <span>Déjà un compte ? </span>
+              <a routerLink="/login">Se connecter</a>
+            </div>
+          </form>
+        </div>
+        <div class="image-side">
+          <img src="./assets/images/register.png" alt="Register">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
