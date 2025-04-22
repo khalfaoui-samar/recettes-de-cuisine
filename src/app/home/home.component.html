@@ -1,0 +1,14 @@
+<div class="background-slideshow">
+    <div class="slide" *ngFor="let slide of slides; let i = index" 
+         [ngStyle]="{'opacity': currentImage === i ? '1' : '0',
+                    'background-image': 'url(assets/images/' + slide + ')'}">
+    </div>
+</div>
+
+
+<section class="hero-section">
+    <div class="hero-content">
+      <h1 class="animated-title">Cuisinez<br>des recettes<br>délicieuses</h1>
+      <button class="se-connecter-btn" routerLink="/login">se connecter</button>
+    </div>
+</section>
