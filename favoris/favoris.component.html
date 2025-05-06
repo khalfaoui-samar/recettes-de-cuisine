@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Favoris</title>
+</head>
+<body>
+    <header class="navbar user-navbar">
+        <div class="logo-title">
+            <img src="assets/images/logo.jpg" alt="logo" class="logo-img">
+            <span class="brand">Urbee</span>
+        </div>
+        <ul class="nav-links nav-center">
+            <li><a routerLink="/userhome" routerLinkActive="active" class="nav-link">Home</a></li>
+            <li><a routerLink="/recettes" routerLinkActive="active" class="nav-link">Recettes</a></li>
+            <li><a routerLink="/about" routerLinkActive="active" class="nav-link">About Us</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a routerLink="/favoris"><img src="assets/images/favoris.png" alt="favoris" class="favoris-icon"></a>
+            <div class="dropdown">
+                <a class="nav-link">
+                    <img src="assets/images/profil.png" alt="profil" class="profil-icon">
+                </a>
+                <ul class="dropdown-content">
+                    <li><a routerLink="/profil" class="dropdown-link">profil</a></li>
+                    <li><a class="dropdown-link" (click)="onLogoutClick($event)">se déconnecter</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="favoris-container">
+        <div class="container">
+            <h1 class="favoris-titre">Mes Recettes Favorites</h1>
+            
+            <div class="recettes-grid" *ngIf="recettesFavorites.length > 0">
+                <div class="recette-card" *ngFor="let recette of recettesFavorites">
+                    <div class="recette-image">
+                        <img [src]="recette.image" [alt]="recette.titre">
+                    </div>
+                    <div class="recette-info">
+                        <h3 class="recette-titre">{{ recette.titre }}</h3>
+                        <div class="recette-meta">
+                            <span class="temps">⏱ {{ recette.tempsPreparation }} min</span>
+                            <span class="difficulte">📊 {{ recette.difficulte }}</span>
+                        </div>
+                        <div class="recette-actions">
+                            <a [routerLink]="['/menu', recette.id]" class="btn btn-primary">Voir la recette</a>
+                            <button class="btn btn-danger" (click)="supprimerDesFavoris(recette.id)">
+                                Retirer des favoris
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="no-favoris" *ngIf="recettesFavorites.length === 0">
+                <p>Vous n'avez pas encore de recettes favorites.</p>
+                <a routerLink="/recettes" class="btn btn-primary">Découvrir les recettes</a>
+            </div>
+        </div>
+    </main>
+
+    <img src="assets/images/footer.png" alt="Footer" class="full-width-img">
+</body>
+</html>

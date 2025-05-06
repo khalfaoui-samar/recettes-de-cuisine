@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>UserHome</title>
+  </head>
+  <body>
+    <header class="navbar user-navbar">
+      <div class="logo-title">
+        <img src="assets/images/logo.jpg" alt="logo" class="logo-img">
+        <span class="brand">Urbee</span>
+      </div>
+      <ul class="nav-links nav-center">
+        <li><a routerLink="/userhome" routerLinkActive="active" class="nav-link">Home</a></li>
+        <li><a routerLink="/recettes" routerLinkActive="active" class="nav-link">Recettes</a></li>
+        <li class="dropdown">
+          <a class="nav-link">categories &#9662;</a>
+          <ul class="dropdown-content">
+            <li><a routerLink="/recettes/soupe" class="dropdown-link">Soupes</a></li>
+            <li><a routerLink="/recettes/salade" class="dropdown-link">Salades</a></li>
+            <li><a routerLink="/recettes/plat" class="dropdown-link">Plats</a></li>
+            <li><a routerLink="/recettes/dessert" class="dropdown-link">Desserts</a></li>
+            <li><a routerLink="/recettes/boisson" class="dropdown-link">Boissons</a></li>
+          </ul>
+        </li>
+        <li><a routerLink="/about" routerLinkActive="active" class="nav-link">About Us</a></li>
+      </ul>
+      <div class="nav-icons">
+        <a routerLink="/favoris"><img src="assets/images/favoris.png" alt="favoris" class="favoris-icon"></a>
+        <div class="dropdown">
+          <a class="nav-link">
+            <img src="assets/images/profil.png" alt="profil" class="profil-icon">
+          </a>
+          <ul class="dropdown-content">
+            <li><a routerLink="/profil" class="dropdown-link">profil</a></li>
+            <li><a class="dropdown-link" (click)="onLogoutClick($event)">se déconnecter</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="slideshow">
+        <div class="slide" *ngFor="let slide of slides; let i = index" 
+             [ngStyle]="{'opacity': currentImage === i ? '1' : '0',
+                        'background-image': 'url(assets/images/' + slide + ')'}">
+        </div>
+    </div>
+  </body>
+</html>

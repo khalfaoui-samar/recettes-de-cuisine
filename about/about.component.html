@@ -1,0 +1,55 @@
+<div class="page-container">
+  <header class="user-navbar">
+    <div class="logo-title">
+      <img src="assets/images/logo.jpg" alt="logo" class="logo-img">
+      <span class="brand">Urbee</span>
+    </div>
+    <ul class="nav-links nav-center">
+      <li><a routerLink="/userhome" routerLinkActive="active" class="nav-link">Home</a></li>
+      <li><a routerLink="/recettes" routerLinkActive="active" class="nav-link">Recettes</a></li>
+      <li class="dropdown">
+        <a class="nav-link">categories &#9662;</a>
+        <ul class="dropdown-content">
+          <li><a routerLink="/recettes/soupe" class="dropdown-link">Soupes</a></li>
+          <li><a routerLink="/recettes/salade" class="dropdown-link">Salades</a></li>
+          <li><a routerLink="/recettes/plat" class="dropdown-link">Plats</a></li>
+          <li><a routerLink="/recettes/dessert" class="dropdown-link">Desserts</a></li>
+          <li><a routerLink="/recettes/boisson" class="dropdown-link">Boissons</a></li>
+        </ul>
+      </li>
+      <li><a routerLink="/about" routerLinkActive="active">About Us</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a routerLink="/favoris"><img src="assets/images/favoris.png" alt="favoris" class="favoris-icon"></a>
+      <div class="dropdown">
+        <a class="nav-link">
+          <img src="assets/images/profil.png" alt="profil" class="profil-icon">
+        </a>
+        <ul class="dropdown-content">
+          <li><a routerLink="/profil" class="dropdown-link">profil</a></li>
+          <li><a class="dropdown-link" (click)="onLogoutClick($event)">se déconnecter</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <div class="content-wrapper">
+    <img src="assets/images/about.png" alt="about" class="full-width-img">
+    <img src="assets/images/about1.png" alt="about1" class="full-width-img">
+    
+    <div class="image-text-wrapper">
+      <img src="assets/images/about2.png" alt="about2" class="full-width-img">
+      <div class="overlay-text"> 
+        <p class="titre">Mon histoire</p><br><br>
+        <p>Depuis mes débuts sur YouTube, je partage avec vous ma passion pour la cuisine à travers des recettes authentiques, créatives et accessibles à tous.
+          Aujourd'hui, j'ai décidé d'aller plus loin en créant cette application : un espace simple et chaleureux où vous pouvez retrouver facilement toutes mes recettes, mes astuces et mes petits secrets de chef.<br>
+          <br>Que vous soyez débutant ou déjà à l'aise en cuisine, cette application a été pensée pour vous accompagner, vous inspirer, et vous donner envie de passer derrière les fourneaux.
+          Avec moi, la cuisine devient un plaisir simple, convivial et toujours savoureux !<br>
+          <br>J'ai créé cette application pour que mes recettes, mes idées, et ma vision de la cuisine ne disparaissent jamais.
+          Même après moi, elle continuera de transmettre ma passion, d'inspirer, et de faire vivre mon nom à travers chaque plat.
+          <br>Un héritage que je vous laisse avec tout mon cœur.
+      </div>
+    </div><br><br><br><br><br><br><br><br><br>
+    <img src="assets/images/footer.png" alt="Footer" class="full-width-img">
+  </div>
+</div>

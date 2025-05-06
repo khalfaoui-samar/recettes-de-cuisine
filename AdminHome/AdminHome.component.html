@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>Admin Home</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="admin-topbar">
+        <span class="admin-title">Admin Dashboard</span>
+        <div class="admin-topbar-links">
+          <a routerLink="/GererRecettes" class="topbar-link">Gestion des recettes</a>
+          <a href="#" class="topbar-link" (click)="onLogoutClick($event)">Se déconnecter</a>
+        </div>
+      </div>
+    <div id="wrapper">
+      <div class="content-page">
+        <div class="content">
+            <div class="admin-user-crud-container"><br>
+              <div class="admin-user-header">
+                <h2>Gestion des comptes utilisateurs</h2>
+                <button class="btn btn-primary btn-ajouter" (click)="toggleAddForm()">
+                  <i class="bi bi-plus-lg"></i> Ajouter
+                </button>
+              </div>
+              <form *ngIf="showAddForm" (ngSubmit)="addUser()" #userForm="ngForm" class="user-form" style="margin-bottom: 24px;">
+                <input type="text" [(ngModel)]="newUser.firstName" name="firstName" placeholder="Prénom" required>
+                <input type="text" [(ngModel)]="newUser.lastName" name="lastName" placeholder="Nom" required>
+                <input type="email" [(ngModel)]="newUser.email" name="email" placeholder="Email" required>
+                <input type="password" [(ngModel)]="newUser.password" name="password" placeholder="Mot de passe" required>
+                <button type="submit" class="btn btn-success">Valider</button>
+                <button type="button" class="btn btn-secondary" (click)="toggleAddForm()">Annuler</button>
+              </form>
+              <br><br>
+              <table class="table table-bordered align-middle">
+                <thead>
+                  <tr>
+                    <th>Profile</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Membre depuis</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="listeUser.length === 0">
+                    <td colspan="6">Aucun utilisateur trouvé.</td>
+                  </tr>
+                  <tr *ngFor="let user of listeUser">
+                    <td>
+                      <span class="avatar-initials">{{ (user.firstName ? user.firstName.charAt(0) : '') }}{{ (user.lastName ? user.lastName.charAt(0) : '') }}</span>
+                    </td>
+                    <td>{{user.firstName || ''}} {{user.lastName || ''}}</td>
+                    <td>{{user.email || ''}}</td>
+                    <td>••••••••</td>
+                    <td>{{user.createdAt}}</td>
+                    <td>
+                      <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id!)">
+                        <i class="bi bi-trash"></i> Supprimer
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Statistiques de création de comptes par jour -->
+            <div class="user-stats-container" *ngIf="barChartData && barChartData.labels && barChartData.labels.length > 0">
+              <h3>Comptes créés par jour</h3>
+              <canvas baseChart
+                [data]="barChartData"
+                [type]="'bar'"
+                [options]="{responsive: true, plugins: {legend: {display: false}}}">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

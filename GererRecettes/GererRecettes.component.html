@@ -1,0 +1,175 @@
+<div class="container-fluid">
+    <div class="admin-topbar">
+      <span class="admin-title">Admin Dashboard</span>
+      <div class="admin-topbar-links">
+        <a routerLink="/AdminHome" class="topbar-link">Gestion des Utilisateurs</a>
+        <a href="#" class="topbar-link" (click)="onLogoutClick($event)">Se déconnecter</a>
+      </div>
+    </div>
+  <div id="wrapper">
+    <div class="content-page">
+      <div class="content">
+        <div class="container mt-4">
+          <!-- Section Ajouter une nouvelle recette -->
+          <div class="card">
+            <div class="card-body">
+              <h2 class="mb-4">Ajouter une nouvelle recette</h2>
+              <form [formGroup]="recetteForm" (ngSubmit)="onSubmit()">
+                    <div class="row mx-0">
+                  <div class="col-md-7" style="padding-right: 25px;">
+                        <!-- Titre -->
+                        <div class="mb-3">
+                          <label for="titre" class="form-label">Titre</label>
+                          <input type="text" class="form-control" id="titre" formControlName="titre">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                          <label for="description" class="form-label">Description</label>
+                          <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+                        </div>
+
+                        <!-- Ingrédients -->
+                        <div class="mb-3">
+                          <label class="form-label">Ingrédients</label>
+                          <div formArrayName="ingredients">
+                            <div *ngFor="let ingredient of ingredients.controls; let i = index" class="mb-2">
+                              <div class="input-group">
+                                <input type="text" class="form-control" [formControlName]="i" placeholder="Ingrédient">
+                                <button type="button" class="btn btn-outline-danger" (click)="removeIngredient(i)" *ngIf="ingredients.length > 1">
+                                  <i class="fas fa-times"></i>
+                           </button>
+                         </div>
+                            </div>
+                          </div>
+                          <button type="button" class="btn btn-secondary mt-2" (click)="addIngredient()">
+                            Ajouter un ingrédient
+                          </button>
+                        </div>
+
+                        <!-- Instructions -->
+                        <div class="mb-3">
+                          <label for="instructions" class="form-label">Instructions</label>
+                          <textarea class="form-control" id="instructions" rows="4" formControlName="instructions"></textarea>
+                        </div>
+                      </div>
+
+                      <div class="col-md-5" style="padding-left: 15px;">
+                        <!-- Temps sur la même ligne -->
+                        <div class="row mx-0">
+                          <div class="col-6 ps-0 pe-2">
+                            <div class="mb-3">
+                              <label for="tempsPreparation" class="form-label">Temps de préparation (minutes)</label>
+                              <input type="number" class="form-control" id="tempsPreparation" formControlName="tempsPreparation">
+                            </div>
+                          </div>
+                          <div class="col-6 ps-2 pe-0">
+                            <div class="mb-3">
+                              <label for="tempsCuisson" class="form-label">Temps de cuisson (minutes)</label>
+                              <input type="number" class="form-control" id="tempsCuisson" formControlName="tempsCuisson">
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Difficulté -->
+                        <div class="mb-3">
+                          <label for="difficulte" class="form-label">Difficulté</label>
+                          <select class="form-control" id="difficulte" formControlName="difficulte">
+                            <option value="">Sélectionner une difficulté</option>
+                            <option value="facile">Facile</option>
+                            <option value="moyen">Moyen</option>
+                            <option value="difficile">Difficile</option>
+                          </select>
+                        </div>
+
+                        <!-- Catégorie -->
+                        <div class="mb-3">
+                          <label for="categorie" class="form-label">Catégorie</label>
+                          <select class="form-control" id="categorie" formControlName="categorie">
+                            <option value="">Sélectionner une catégorie</option>
+                            <option value="soupe">Soupe</option>
+                            <option value="salade">Salade</option>
+                            <option value="plat">Plats</option>
+                            <option value="dessert">Dessert</option>
+                            <option value="boisson">Boisson</option>
+                          </select>
+                        </div>
+
+                        <!-- Image -->
+                        <div class="mb-3">
+                          <label for="image" class="form-label">Image</label>
+                          <input type="file" class="form-control" id="image" (change)="onImageSelect($event)" accept="image/*">
+                          <div *ngIf="imagePreview" class="mt-2">
+                            <img [src]="imagePreview" class="img-thumbnail" style="max-width: 300px; max-height: 200px; object-fit: contain;" alt="Aperçu">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="text-end">
+                      <div class="d-flex gap-2 justify-content-end">
+                        <button *ngIf="isEditing" type="button" class="btn btn-secondary" (click)="cancelEdit()">
+                          <i class="fas fa-times me-1"></i>
+                          Annuler
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                          <i class="fas" [ngClass]="isEditing ? 'fa-save' : 'fa-plus'" me-1></i>
+                          {{ isEditing ? 'Enregistrer les modifications' : 'Ajouter la recette' }}
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+          <!-- Section Liste des recettes -->
+          <div class="card mt-4">
+            <div class="card-body">
+              <h2 class="mb-4">Liste des recettes</h2>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Titre</th>
+                      <th>Difficulté</th>
+                      <th>Catégorie</th>
+                      <th>Date d'ajout</th>
+                      <th class="text-center">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let recette of recettes">
+                      <td>
+                        <img [src]="recette.image" class="img-thumbnail" style="height: 50px; width: 50px; object-fit: cover;">
+                      </td>
+                      <td>{{ recette.titre }}</td>
+                      <td>{{ recette.difficulte }}</td>
+                      <td>{{ recette.categorie }}</td>
+                      <td>{{ recette.dateCreation | date:'dd/MM/yyyy' }}</td>
+                      <td class="text-center" style="min-width: 200px;">
+                        <div class="d-flex gap-2 justify-content-center">
+                          <button class="btn btn-warning" (click)="editRecette(recette)">
+                            <i class="fas fa-edit me-1"></i>
+                            Modifier
+                          </button>
+                          <button class="btn btn-danger" (click)="deleteRecette(recette.id!)">
+                            <i class="fas fa-trash me-1"></i>
+                            Supprimer
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr *ngIf="recettes.length === 0">
+                      <td colspan="6" class="text-center">Aucune recette disponible</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

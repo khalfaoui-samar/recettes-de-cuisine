@@ -1,0 +1,145 @@
+<div class="container-fluid">
+  <header class="navbar user-navbar">
+    <div class="logo-title">
+      <img src="assets/images/logo.jpg" alt="logo" class="logo-img">
+      <span class="brand">Urbee</span>
+    </div>
+    <ul class="nav-links nav-center">
+      <li><a routerLink="/UserHome" routerLinkActive="active" class="nav-link">Home</a></li>
+      <li><a [routerLink]="['/Recettes']" class="nav-link">Recettes</a></li>
+      <li class="dropdown">
+        <a class="nav-link">categories &#9662;</a>
+        <ul class="dropdown-content">
+          <li><a routerLink="/about" class="dropdown-link">Soupes</a></li>
+          <li><a routerLink="/service" class="dropdown-link">Salades</a></li>
+          <li><a routerLink="/faq" class="dropdown-link">Plats principaux</a></li>
+          <li><a routerLink="/faq" class="dropdown-link">Complementaires</a></li>
+          <li><a routerLink="/faq" class="dropdown-link">Boissons</a></li>
+        </ul>
+      </li>
+      <li><a routerLink="/about" routerLinkActive="active" class="nav-link">About Us</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a routerLink="/favoris"><img src="assets/images/favoris.png" alt="favoris" class="favoris-icon"></a>
+      <li class="dropdown">
+        <a class="nav-link" routerLink="/profil">
+          <img src="assets/images/profil.png" alt="profil" class="profil-icon">
+        </a>
+        <ul class="dropdown-content">
+          <li><a routerLink="/profil" class="dropdown-link">profil</a></li>
+          <li><a class="dropdown-link" (click)="onLogoutClick($event)">se déconnecter</a></li>
+        </ul>
+      </li>
+    </div>
+  </header>
+
+  <div class="profile-container">
+    <div class="profile-card">
+      <h2>Mon profil</h2>
+      <div class="profile-content">
+        <!-- Mode affichage -->
+        <ng-container *ngIf="!editMode">
+          <div class="profile-header">
+            <div class="profile-image">
+              <img [src]="userProfile.profileImage || 'assets/images/profil-default.jpg'" 
+                   alt="Profile Picture" 
+                   class="rounded-circle">
+            </div>
+            <button class="btn btn-primary edit-profile" (click)="onEditProfile()">
+              Modifier le profil
+            </button>
+          </div>
+
+          <div class="profile-info-section">
+            <div class="info-group">
+              <label>NOM COMPLET</label>
+              <p>{{ userProfile.username }}</p>
+            </div>
+            <div class="info-group">
+              <label>EMAIL</label>
+              <p>{{ userProfile.email }}</p>
+            </div>
+            <div class="info-group">
+              <label>TYPE DE COMPTE</label>
+              <p>UTILISATEUR</p>
+            </div>
+            <div class="info-group">
+              <label>MOT DE PASSE</label>
+              <div class="password-field">
+                <span class="password-hidden">********</span>
+              </div>
+            </div>
+            <div class="info-group">
+              <label>MEMBRE DEPUIS</label>
+              <p>{{ userProfile.memberSince | date:'longDate':'':'fr' }}</p>
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- Mode édition -->
+        <ng-container *ngIf="editMode">
+          <div class="profile-image">
+            <div class="image-upload">
+              <img [src]="previewUrl || userProfile.profileImage || 'assets/images/profil-default.jpg'" 
+                   alt="Profile Picture" 
+                   class="rounded-circle">
+              <div class="upload-overlay">
+                <input type="file" 
+                       (change)="onFileSelected($event)" 
+                       accept="image/*" 
+                       id="profile-image" 
+                       class="file-input">
+                <label for="profile-image" class="upload-button">
+                  <i class="fas fa-camera"></i>
+                  Changer la photo
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <form [formGroup]="editForm" (ngSubmit)="onSubmitEdit()" class="edit-form">
+            <div class="form-group">
+              <label for="firstName">Prénom</label>
+              <input type="text" 
+                     id="firstName" 
+                     formControlName="firstName" 
+                     class="form-control" 
+                     placeholder="Votre prénom">
+            </div>
+
+            <div class="form-group">
+              <label for="lastName">Nom</label>
+              <input type="text" 
+                     id="lastName" 
+                     formControlName="lastName" 
+                     class="form-control" 
+                     placeholder="Votre nom">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" 
+                     id="email" 
+                     formControlName="email" 
+                     class="form-control" 
+                     placeholder="Votre email">
+            </div>
+
+            <div class="form-actions">
+              <button type="button" 
+                      class="btn btn-secondary" 
+                      (click)="onCancelEdit()">
+                Annuler
+              </button>
+              <button type="submit" 
+                      class="btn btn-primary" 
+                      [disabled]="!editForm.valid">
+                Enregistrer
+              </button>
+            </div>
+          </form>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <img src="assets/images/footer.png" alt="Footer" class="full-width-img">

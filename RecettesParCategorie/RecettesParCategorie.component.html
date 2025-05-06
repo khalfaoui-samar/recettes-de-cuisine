@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recettes par Catégorie</title>
+</head>
+<body>
+  <header class="navbar user-navbar">
+    <div class="logo-title">
+      <img src="assets/images/logo.jpg" alt="logo" class="logo-img">
+      <span class="brand">Urbee</span>
+    </div>
+    <ul class="nav-links nav-center">
+      <li><a routerLink="/userhome" routerLinkActive="active" class="nav-link">Home</a></li>
+      <li><a routerLink="/recettes" routerLinkActive="active" class="nav-link">Recettes</a></li>
+      <li class="dropdown">
+        <a class="nav-link">categories &#9662;</a>
+        <ul class="dropdown-content">
+          <li><a routerLink="/recettes/soupe" class="dropdown-link">Soupes</a></li>
+          <li><a routerLink="/recettes/salade" class="dropdown-link">Salades</a></li>
+          <li><a routerLink="/recettes/plat" class="dropdown-link">Plats</a></li>
+          <li><a routerLink="/recettes/dessert" class="dropdown-link">Desserts</a></li>
+          <li><a routerLink="/recettes/boisson" class="dropdown-link">Boissons</a></li>
+        </ul>
+      </li>
+      <li><a routerLink="/about" routerLinkActive="active" class="nav-link">About Us</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a routerLink="/favoris"><img src="assets/images/favoris.png" alt="favoris" class="favoris-icon"></a>
+      <div class="dropdown">
+        <a class="nav-link">
+          <img src="assets/images/profil.png" alt="profil" class="profil-icon">
+        </a>
+        <ul class="dropdown-content">
+          <li><a routerLink="/profil" class="dropdown-link">profil</a></li>
+          <li><a class="dropdown-link" (click)="onLogoutClick($event)">se déconnecter</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container-fluid">
+      <div class="content-page">
+        <div class="content">
+          <section class="hero">
+            <h1>{{ categories[categorie] || 'Recettes' }}</h1>
+            <p>Découvrez nos meilleures recettes de {{ categories[categorie].toLowerCase() || 'toutes catégories' }}</p>
+          </section>
+
+          <!-- Barre de recherche -->
+          <div class="search-container">
+            <div class="search-box">
+              <div class="search-wrapper">
+                <input type="text" 
+                       [(ngModel)]="searchTerm" 
+                       (ngModelChange)="searchRecettes()"
+                       placeholder="Rechercher une recette ou un ingrédient..."
+                       class="search-input">
+                <button class="search-button" (click)="searchRecettes()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <section class="recipes-grid">
+            <div class="recipe-card" *ngFor="let recette of filteredRecettes" (click)="voirDetails(recette.id)" style="cursor: pointer;">
+              <div class="recipe-image">
+                <img [src]="recette.image" [alt]="recette.titre">
+              </div>
+              <div class="recipe-info">
+                <h3>{{ recette.titre }}</h3>
+                <p>Temps de préparation: {{ recette.tempsPreparation }} min</p>
+                <p class="date-added">Ajoutée le: {{ recette.dateCreation | date:'dd MMMM yyyy':'':'fr' }}</p>
+                <div class="difficulty">
+                  <span [class]="'badge ' + getDifficultyClass(recette.difficulte)">{{ recette.difficulte }}</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+  <img src="assets/images/footer.png" alt="Footer" class="full-width-img">
+</body>
+</html> 

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Recette</title>
+</head>
+<body>
+    <header class="navbar user-navbar">
+        <div class="logo-title">
+            <img src="assets/images/logo.jpg" alt="logo" class="logo-img">
+            <span class="brand">Urbee</span>
+        </div>
+        <ul class="nav-links nav-center">
+            <li><a routerLink="/userhome" routerLinkActive="active" class="nav-link">Home</a></li>
+            <li><a routerLink="/recettes" routerLinkActive="active" class="nav-link">Recettes</a></li>
+            <li><a routerLink="/about" routerLinkActive="active" class="nav-link">About Us</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a routerLink="/favoris"><img src="assets/images/favoris.png" alt="favoris" class="favoris-icon"></a>
+            <div class="dropdown">
+                <a class="nav-link">
+                    <img src="assets/images/profil.png" alt="profil" class="profil-icon">
+                </a>
+                <ul class="dropdown-content">
+                    <li><a routerLink="/profil" class="dropdown-link">profil</a></li>
+                    <li><a class="dropdown-link" (click)="onLogoutClick($event)">se déconnecter</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="recette-details" *ngIf="recette">
+        <div class="container">
+            <b><h1 class="recette-titre">{{ recette.titre }}</h1></b>
+            
+            <div class="recette-image">
+                <img [src]="recette.image" [alt]="recette.titre">
+            </div>
+
+            <div class="recette-meta-info">
+                <div class="meta-item">
+                    <span class="meta-label">Préparation : </span>
+                    <span class="meta-value">{{ recette.tempsPreparation }} min</span>
+                </div>
+                <div class="meta-separator"></div>
+                <div class="meta-item">
+                    <span class="meta-label">Cuisson : </span>
+                    <span class="meta-value">{{ recette.tempsCuisson }} min</span>
+                </div>
+                <div class="meta-separator"></div>
+                <div class="meta-item">
+                    <span class="meta-label">Niveau : </span>
+                    <span class="meta-value">{{ recette.difficulte }}</span>
+                </div>
+                <div class="meta-separator"></div>
+                <div class="meta-item">
+                    <span class="meta-label">Pour : </span>
+                    <span class="meta-value">4 personnes</span>
+                </div>
+            </div>
+            
+
+            <div class="favoris-container">
+                <button class="btn-favoris" (click)="toggleFavoris()" [class.active]="estDansFavoris()">
+                    <span class="favoris-icon">❤</span>
+                    {{ estDansFavoris() ? 'Retirer des favoris' : 'Ajouter aux favoris' }}
+                </button>
+            </div>
+
+            <div class="recette-content">
+                <section class="ingredients">
+                    <h2>Ingrédients</h2>
+                    <ul>
+                        <li *ngFor="let ingredient of recette.ingredients">
+                            {{ ingredient }}
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="etapes">
+                    <h2>Étapes de préparation</h2>
+                    <div class="instructions">
+                        {{ recette.instructions }}
+                    </div>
+                </section>
+            </div>
+
+            <!-- Bloc commentaire utilisateur (design comme la capture) -->
+            <div class="comment-box">
+                <h3 style="color:#ff7e79; font-weight:bold; font-size:1.3rem; margin-bottom:10px;">
+                    <span style="border-left:4px solid #ff7e79; padding-left:8px;">Votre avis</span>
+                </h3>
+                <div class="rating mb-3">
+                    <span>Note : </span>
+                    <div class="stars">
+                        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                            <span class="star"
+                                (click)="setNote(star)"
+                                (mouseenter)="hovered = star"
+                                (mouseleave)="hovered = 0"
+                                [class.active]="star <= (hovered || note)">
+                                ★
+                            </span>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="input-row mb-3">
+                    <div class="input-field">
+                        <input type="text" 
+                               class="form-control" 
+                               id="auteur" 
+                               [(ngModel)]="auteur" 
+                               placeholder="Votre nom *" 
+                               [class.is-invalid]="auteur.trim() === ''">
+                    </div>
+                    <div class="input-field">
+                        <input type="email" 
+                               class="form-control" 
+                               id="email" 
+                               [(ngModel)]="email" 
+                               placeholder="Votre email *"
+                               [class.is-invalid]="email.trim() === ''">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" 
+                              id="commentaire" 
+                              [(ngModel)]="nouveauCommentaire" 
+                              rows="4" 
+                              placeholder="Laisser un commentaire (optionnel)"></textarea>
+                </div>
+                <div class="form-info mb-3">
+                    * Champs obligatoires
+                </div>
+                <button class="btn btn-primary" 
+                        (click)="ajouterCommentaire()" 
+                        [disabled]="!auteur.trim() || !email.trim()">
+                    Envoyer votre avis
+                </button>
+            </div>
+
+            <!-- Liste des commentaires -->
+            <div class="liste-commentaires">
+                <div class="commentaire" *ngFor="let commentaire of commentaires">
+                    <div class="commentaire-header">
+                        <div class="auteur-note">
+                            <span class="auteur">{{ commentaire.auteur }}</span>
+                            <div class="stars-display" *ngIf="commentaire.note">
+                                <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                                    <span class="star" [class.active]="star <= commentaire.note">★</span>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <span class="date">{{ commentaire.dateCreation | date:'dd/MM/yyyy HH:mm' }}</span>
+                    </div>
+                    <div class="commentaire-contenu" *ngIf="commentaire.contenu">
+                        {{ commentaire.contenu }}
+                    </div>
+                    <button class="btn btn-danger btn-sm" (click)="supprimerCommentaire(commentaire.id!)">
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <img src="assets/images/footer.png" alt="Footer" class="full-width-img">
+</body>
+</html>

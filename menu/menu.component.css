@@ -1,0 +1,456 @@
+.recette-details {
+    padding: 2rem 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.recette-titre {
+    font-size: 3rem;
+    color: #ff6b6b;
+    text-align: center;
+    margin: 2rem 0;
+    font-weight: 600;
+}
+
+.recette-meta-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.meta-separator {
+    width: 1px;
+    height: 20px;
+    background-color: #ddd;
+    margin: 0 0.5rem;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.meta-label {
+    font-weight: 500;
+    color:black;
+}
+
+.meta-value {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.favoris-container {
+    display: flex;
+    justify-content: flex-start;
+    margin: 1rem 0;
+}
+
+.btn-favoris {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 2px solid #ff6b6b;
+    border-radius: 25px;
+    background-color: white;
+    color: #ff6b6b;
+    font-weight: 500;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 1100px;
+}
+
+.btn-favoris:hover {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.btn-favoris.active {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.btn-favoris .favoris-icon {
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-favoris:hover .favoris-icon {
+    transform: scale(1.2);
+}
+
+.recette-image {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recette-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.recette-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ingredients, .etapes {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.ingredients h2, .etapes h2 {
+    color: #ff6b6b;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.ingredients ul {
+    list-style: none;
+    padding: 0;
+    columns: 2;
+    column-gap: 2rem;
+}
+
+.ingredients li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+    break-inside: avoid;
+    margin-bottom: 0.5rem;
+}
+
+.etapes ol {
+    padding-left: 1.5rem;
+}
+
+.instructions {
+    white-space: pre-line;
+    line-height: 2;
+    color: #333;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+.badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .recette-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .recette-header h1 {
+        font-size: 2rem;
+    }
+    
+    .recette-meta {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+}
+
+/* Styles pour la navbar */
+.user-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #007bff;
+}
+
+/* Styles pour les champs de formulaire */
+.input-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.input-field {
+    flex: 1;
+}
+
+.form-info {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.is-invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.is-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Styles pour le système d'étoiles */
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stars {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.stars {
+    display: inline-flex;
+    gap: 5px;
+}
+
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.2s;
+    -webkit-text-stroke: 1px #b4b4b4;
+}
+
+.star.active {
+    color: #FFD700;
+    -webkit-text-stroke: 1px #DAA520;
+}
+
+.star:hover {
+    color: #FFD700;
+    -webkit-text-stroke: 1px #DAA520;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.favoris-icon,
+.profil-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-link {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-link:hover {
+    background-color: #f8f9fa;
+}
+
+.full-width-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Section Commentaires */
+.commentaires-section {
+    padding: 2rem 0;
+    background-color: #f9f9f9;
+}
+
+.commentaires-section h2 {
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.ajout-commentaire {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.liste-commentaires {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.commentaire {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.commentaire-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.commentaire-header .auteur {
+    font-weight: bold;
+    color: #333;
+}
+
+.commentaire-header .date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.commentaire-contenu {
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.commentaire button {
+    margin-top: 0.5rem;
+}
+
+.comment-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 8px #0001;
+  margin-bottom: 24px;
+  text-align: left;
+}
+.stars {
+  margin-bottom: 12px;
+}
+.star {
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.star.filled,
+.star.hovered {
+  color: #FFC107;
+}
+textarea {
+  width: 100%;
+  min-height: 80px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 12px;
+  padding: 8px;
+  font-size: 1rem;
+}
+button {
+  background: #ff7e79;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 10px 32px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:disabled {
+  background: #ffd6d6;
+  cursor: not-allowed;
+}
